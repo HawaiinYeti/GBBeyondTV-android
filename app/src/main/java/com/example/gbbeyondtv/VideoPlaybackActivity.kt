@@ -12,12 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.ui.StyledPlayerView
 
 class VideoPlaybackActivity : AppCompatActivity() {
 
     private lateinit var player: ExoPlayer
-    private lateinit var playerView: PlayerView
+    private lateinit var playerView: StyledPlayerView
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var apiService: ApiService
     private lateinit var channelService: ChannelService
