@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:text="Available Channels"
             android:textSize="24sp"
-            android:paddingBottom="16dp"/>
+            android:paddingBottom="16dp"
+            android:textColor="@color/text_color"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

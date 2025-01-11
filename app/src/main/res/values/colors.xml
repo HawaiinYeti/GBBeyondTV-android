@@ -3,4 +3,6 @@
     <color name="background">#FF333333</color>
     <color name="selected_item_background">#FF660000</color> <!-- Light gray or your preferred color -->
     <color name="default_item_background">#00FFFFFF</color> <!-- White or your preferred color -->
+    <color name="text_color">#FFC2C2C2</color> <!-- RGB 194, 194, 194 -->
+    <color name="text_shadow_color">#7F000000</color> <!-- Black or your preferred color -->"
 </resources>

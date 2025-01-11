@@ -4,14 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/background">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enter the Server IP/Hostname"
         android:textSize="18sp"
-        android:paddingBottom="8dp"/>
+        android:paddingBottom="8dp"
+        android:textColor="@color/text_color"/>
 
     <EditText
         android:id="@+id/ip_edit_text"
@@ -23,16 +25,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter the Port"
+        android:text="Enter Port (Default: 8282)"
         android:textSize="18sp"
         android:paddingTop="16dp"
-        android:paddingBottom="8dp"/>
+        android:paddingBottom="8dp"
+        android:textColor="@color/text_color"/>
 
     <EditText
         android:id="@+id/port_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="e.g., 8080"
+        android:text="8282"
         android:inputType="number"/>
 
     <Button

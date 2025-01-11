@@ -14,7 +14,12 @@
         android:fontFamily="sans-serif-medium"
         android:text="Channel Name"
         android:textAlignment="viewStart"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textColor="@color/text_color"
+        android:shadowColor="@color/text_shadow_color"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2" />
 
     <TextView
         android:id="@+id/exo_video_name"
@@ -23,9 +28,14 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="10dp"
-        android:text="Channel Name"
+        android:text="Video Name"
         android:textAlignment="viewStart"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:textColor="@color/text_color"
+        android:shadowColor="@color/text_shadow_color"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2" />
 
     <com.google.android.exoplayer2.ui.DefaultTimeBar
         android:id="@+id/exo_progress"
@@ -44,7 +54,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="490dp"
-        android:text="00:00 AM" />
+        android:text="00:00 AM"
+        android:textColor="@color/text_color"
+        android:shadowColor="@color/text_shadow_color"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2" />
 
     <TextView
         android:id="@+id/exo_finish_time"
@@ -52,7 +67,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="890dp"
         android:layout_marginTop="490dp"
-        android:text="00:01 AM" />
+        android:text="00:01 AM"
+        android:textColor="@color/text_color"
+        android:shadowColor="@color/text_shadow_color"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2" />
 
     <!--    <ImageButton-->
     <!--        android:id="@+id/exo_play"-->
