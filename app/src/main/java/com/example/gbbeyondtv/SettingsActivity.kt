@@ -19,11 +19,11 @@ class SettingsActivity : GBBActivity() {
 
         clearButton.setOnClickListener {
             clearHostAndPort()
-            navigateToActivity(SetupActivity::class.java)
+            navigateToActivity(SetupActivity::class.java, true)
         }
 
         backButton.setOnClickListener {
-            navigateToActivity(ChannelListActivity::class.java)
+            navigateToActivity(ChannelListActivity::class.java, true)
         }
     }
 

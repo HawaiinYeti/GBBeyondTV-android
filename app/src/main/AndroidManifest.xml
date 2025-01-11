@@ -19,7 +19,7 @@
         android:theme="@style/Theme.GBBeyondTV"
         android:networkSecurityConfig="@xml/network_security_config">
         <activity
-            android:name=".SetupActivity"
+            android:name=".ChannelListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ChannelListActivity" />
+        <activity android:name=".SetupActivity" />
         <activity android:name=".VideoPlaybackActivity" />
         <activity android:name=".SettingsActivity" />
     </application>

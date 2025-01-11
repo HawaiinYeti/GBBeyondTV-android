@@ -23,21 +23,19 @@ class ChannelListActivity : GBBActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_channel_list)
 
         sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
-
-        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
         val host = sharedPreferences.getString("HOST", "")
         val port = sharedPreferences.getString("PORT", "")
 
         if (host.isNullOrEmpty() || port.isNullOrEmpty()) {
-            // Handle the case where host or port is not available
-            Toast.makeText(this, "Host and port not set", Toast.LENGTH_SHORT).show()
-            return
+            navigateToActivity(SetupActivity::class.java, true)
+        } else {
+            setContentView(R.layout.activity_channel_list)
         }
+
+        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
         val baseUrl = "http://$host:$port/"
         apiService = RetrofitClient.getClient(baseUrl).create(ApiService::class.java)
@@ -52,7 +50,6 @@ class ChannelListActivity : GBBActivity() {
         settingsButton.setOnClickListener {
             navigateToActivity(SettingsActivity::class.java)
         }
-
     }
 
     fun newFetchChannels() {

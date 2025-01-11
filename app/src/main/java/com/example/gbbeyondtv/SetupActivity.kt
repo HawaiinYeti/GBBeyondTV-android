@@ -26,14 +26,7 @@ class SetupActivity : GBBActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
-
-        if (sharedPreferences.contains("HOST") && sharedPreferences.contains("PORT")) {
-            navigateToActivity(ChannelListActivity::class.java)
-            return
-        } else {
-            setContentView(R.layout.activity_setup)
-        }
-
+        setContentView(R.layout.activity_setup)
 
         val hostEditText: EditText = findViewById(R.id.ip_edit_text)
         val portEditText: EditText = findViewById(R.id.port_edit_text)
@@ -45,8 +38,7 @@ class SetupActivity : GBBActivity() {
 
             if (host.isNotEmpty() && port.isNotEmpty()) {
                 saveHostAndPort(host, port)
-                navigateToActivity(ChannelListActivity::class.java)
-                finish()
+                navigateToActivity(ChannelListActivity::class.java, true)
             } else {
                 Toast.makeText(this, "Please enter valid IP and Port", Toast.LENGTH_SHORT).show()
             }
