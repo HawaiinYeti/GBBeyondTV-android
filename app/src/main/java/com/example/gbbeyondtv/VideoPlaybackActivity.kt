@@ -9,15 +9,15 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.ui.StyledPlayerView
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 
 class VideoPlaybackActivity : AppCompatActivity() {
 
     private lateinit var player: ExoPlayer
-    private lateinit var playerView: StyledPlayerView
+    private lateinit var playerView: PlayerView
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var apiService: ApiService
     private lateinit var channelService: ChannelService
@@ -71,7 +71,7 @@ class VideoPlaybackActivity : AppCompatActivity() {
     }
 
     private fun disableSeekBarInteraction() {
-        val timeBar = playerView.findViewById<com.google.android.exoplayer2.ui.DefaultTimeBar>(R.id.exo_progress)
+        val timeBar = playerView.findViewById<androidx.media3.ui.DefaultTimeBar>(R.id.exo_progress)
         timeBar.setOnTouchListener { _, _ -> true } // Consume touch events
     }
 

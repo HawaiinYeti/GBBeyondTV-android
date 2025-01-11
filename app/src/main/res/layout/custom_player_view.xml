@@ -1,5 +1,5 @@
 <!-- custom_player_view.xml -->
-<com.google.android.exoplayer2.ui.StyledPlayerView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.media3.ui.PlayerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/player_view"
     android:layout_width="match_parent"
