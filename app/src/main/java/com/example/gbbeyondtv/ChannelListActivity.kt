@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import android.content.Intent
 import android.widget.Button
 import android.widget.ProgressBar
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 
 class ChannelListActivity : GBBActivity() {
@@ -138,11 +140,17 @@ class ChannelListActivity : GBBActivity() {
     }
 
     private fun onChannelSelected(channel: Channel) {
+        val video = channel.currentlyPlaying()!!
+        val formatter = DateTimeFormatter.ofPattern("hh:mm a")
+        val localZoneId = ZoneId.systemDefault()
         val intent = Intent(this, VideoPlaybackActivity::class.java).apply {
             putExtra("CHANNEL_ID", channel.id)
             putExtra("CHANNEL_NAME", channel.name)
-            putExtra("CHANNEL_URL", channel.currentlyPlaying()?.url)
-            putExtra("SEEK_POSITION", channel.currentlyPlaying()?.getCurrentPlaytime())
+            putExtra("CHANNEL_URL", video.url)
+            putExtra("VIDEO_NAME", video.name)
+            putExtra("SEEK_POSITION", video.getCurrentPlaytime())
+            putExtra("START_TIME", video.startTime.withZoneSameInstant(localZoneId).format(formatter).toString())
+            putExtra("FINISH_TIME", video.endTime.withZoneSameInstant(localZoneId).format(formatter).toString())
         }
         startActivity(intent)
     }

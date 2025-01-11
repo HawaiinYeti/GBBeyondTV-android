@@ -1,0 +1,69 @@
+<!-- custom_exo_controller.xml -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom">
+
+    <TextView
+        android:id="@+id/exo_channel_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Channel Name"
+        android:textAlignment="viewStart"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/exo_video_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="10dp"
+        android:text="Channel Name"
+        android:textAlignment="viewStart"
+        android:textSize="14sp" />
+
+    <com.google.android.exoplayer2.ui.DefaultTimeBar
+        android:id="@+id/exo_progress"
+        android:layout_width="890dp"
+        android:layout_height="4dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="20dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:importantForAccessibility="no" />
+
+    <TextView
+        android:id="@+id/exo_start_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="490dp"
+        android:text="00:00 AM" />
+
+    <TextView
+        android:id="@+id/exo_finish_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="890dp"
+        android:layout_marginTop="490dp"
+        android:text="00:01 AM" />
+
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/exo_play"-->
+    <!--        android:layout_width="885dp"-->
+    <!--        android:layout_height="55dp"-->
+    <!--        android:layout_gravity="center|top"-->
+    <!--        android:layout_marginBottom="10dp"-->
+    <!--        android:background="?attr/selectableItemBackground"-->
+    <!--        android:contentDescription="@string/exo_play"-->
+    <!--        android:src="@drawable/exo_controls_play" />-->
+
+    <!-- Add more controls if needed -->
+
+</FrameLayout>

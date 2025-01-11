@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.exoplayer2.ExoPlayer
@@ -22,7 +24,7 @@ class VideoPlaybackActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_video_playback)
+        setContentView(R.layout.custom_player_view)
 
         // Get channel information from intent
         val channelName = intent.getStringExtra("CHANNEL_NAME")
@@ -42,8 +44,7 @@ class VideoPlaybackActivity : AppCompatActivity() {
         val seekPosition = intent.getLongExtra("SEEK_POSITION", 0)
         player.seekTo(seekPosition * 1000)
 
-        // Disable pause button
-        playerView.useController = false
+        playerView.useController = true
 
         player.addListener(object : Player.Listener {
             override fun onPlaybackStateChanged(playbackState: Int) {
@@ -53,7 +54,25 @@ class VideoPlaybackActivity : AppCompatActivity() {
             }
         })
 
+        val channelNameTextView = playerView.findViewById<TextView>(R.id.exo_channel_name)
+        channelNameTextView.text = intent.getStringExtra("CHANNEL_NAME")
+
+        val videoNameTextView = playerView.findViewById<TextView>(R.id.exo_video_name)
+        videoNameTextView.text = intent.getStringExtra("VIDEO_NAME")
+
+        Log.d("Start Time", intent.getStringExtra("START_TIME").toString())
+        val startTimeTextView = playerView.findViewById<TextView>(R.id.exo_start_time)
+        startTimeTextView.text = intent.getStringExtra("START_TIME")
+
+        val finishTimeTextView = playerView.findViewById<TextView>(R.id.exo_finish_time)
+        finishTimeTextView.text = intent.getStringExtra("FINISH_TIME")
+
         player.playWhenReady = true
+    }
+
+    private fun disableSeekBarInteraction() {
+        val timeBar = playerView.findViewById<com.google.android.exoplayer2.ui.DefaultTimeBar>(R.id.exo_progress)
+        timeBar.setOnTouchListener { _, _ -> true } // Consume touch events
     }
 
     override fun onStart() {

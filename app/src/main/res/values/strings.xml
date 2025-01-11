@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">GBBeyondTV</string>
+
+    <!-- Add the missing string resource -->
+    <string name="exo_play">Play</string>
+
+    <!-- You may also need to add other ExoPlayer related strings -->
+    <string name="exo_pause">Pause</string>
+    <string name="exo_rewind">Rewind</string>
+    <string name="exo_fast_forward">Fast Forward</string>
+    <string name="exo_next">Next</string>
+    <string name="exo_prev">Previous</string>
 </resources>
