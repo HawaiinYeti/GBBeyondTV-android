@@ -20,7 +20,7 @@ class ChannelAdapter(
 
     override fun onBindViewHolder(holder: ChannelViewHolder, position: Int) {
         val channel = channels[position]
-        holder.bind(channel, onItemClick)
+        holder.bind(channel)
         if (position == currentFocusedPosition) {
             holder.itemView.requestFocus()
         }
@@ -28,8 +28,16 @@ class ChannelAdapter(
 
     override fun getItemCount(): Int = channels.size
 
-    fun updateChannels(newChannels: List<Channel>) {
-        notifyDataSetChanged() // Notify adapter of data change
+    fun updateChannels(keepFocus: Boolean = false) {
+        if (!keepFocus) {
+            currentFocusedPosition = null
+        }
+
+        channels.forEachIndexed { index, channel ->
+            if (channel.hasQueueUpdate) {
+                notifyItemChanged(index)
+            }
+        }
     }
 
     fun addChannels(newChannels: List<Channel>) {
@@ -44,7 +52,7 @@ class ChannelAdapter(
         init {
             itemView.setOnFocusChangeListener { view, hasFocus ->
                 if (hasFocus) {
-                    currentFocusedPosition = adapterPosition
+                    currentFocusedPosition = getBindingAdapterPosition()
                     view.setBackgroundColor(view.context.getColor(R.color.selected_item_background))
                 } else {
                     view.setBackgroundColor(view.context.getColor(R.color.default_item_background))
@@ -52,12 +60,13 @@ class ChannelAdapter(
             }
 
             itemView.setOnClickListener {
-                onItemClick(channels[adapterPosition])
+                onItemClick(channels[getBindingAdapterPosition()])
             }
         }
 
-        fun bind(channel: Channel, onItemClick: (Channel) -> Unit) {
-            channelNameTextView.text = "${channel.name} - ${channel.currentlyPlaying()?.name}"
+        fun bind(channel: Channel) {
+            val channelText = "${channel.name} - ${channel.currentlyPlaying()?.name}"
+            channelNameTextView.text = channelText
             itemView.isFocusable = true
             itemView.isFocusableInTouchMode = true
         }

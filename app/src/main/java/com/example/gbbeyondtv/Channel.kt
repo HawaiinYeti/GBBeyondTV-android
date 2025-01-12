@@ -7,7 +7,8 @@ import java.time.ZonedDateTime
 data class Channel(
     val name: String,
     val id: Int,
-    var queueItems: List<QueueItem>
+    var queueItems: List<QueueItem>,
+    var hasQueueUpdate: Boolean = false
 ) : Parcelable {
     private lateinit var channelService: ChannelService
 
@@ -58,8 +59,16 @@ data class Channel(
     }
 
     fun updateQueue() {
+        val origQueueItems = queueItems
+
         queueItems = queueItems.filter {
             it.endTime > ZonedDateTime.now()
+        }
+
+        if (origQueueItems.first().name != queueItems.first().name) {
+            hasQueueUpdate = true
+        } else {
+            hasQueueUpdate = false
         }
     }
 }
