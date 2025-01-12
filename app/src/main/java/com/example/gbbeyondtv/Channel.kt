@@ -1,7 +1,6 @@
 package com.example.gbbeyondtv
 
 import android.os.Parcelable
-import android.widget.Toast
 import java.time.ZonedDateTime
 
 // com.example.gbbeyondtv.Channel.kt
@@ -56,5 +55,11 @@ data class Channel(
             onError = { errorMessage -> }
         )
         return this
+    }
+
+    fun updateQueue() {
+        queueItems = queueItems.filter {
+            it.endTime > ZonedDateTime.now()
+        }
     }
 }
