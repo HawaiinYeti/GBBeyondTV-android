@@ -110,6 +110,7 @@ class ChannelListActivity : GBBActivity() {
     private fun onChannelSelected(channel: Channel) {
         val intent = Intent(this, VideoPlaybackActivity::class.java).apply {
             putExtra("CHANNEL", channel)
+            putExtra("CHANNEL_ID", channel.id)
         }
         startActivity(intent)
     }

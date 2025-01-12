@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.widget.TextView
@@ -46,7 +47,11 @@ class VideoPlaybackActivity : AppCompatActivity() {
 
         disableSeekBarInteraction()
 
-        val channels = listOf(intent.getParcelableExtra("CHANNEL", Channel::class.java)!!)
+        val channels = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            listOf(intent.getParcelableExtra("CHANNEL", Channel::class.java)!!)
+        } else {
+            listOf(intent.getParcelableExtra<Channel>("CHANNEL")!!)
+        }
         playCurrentItem(channels)
     }
 
@@ -90,7 +95,13 @@ class VideoPlaybackActivity : AppCompatActivity() {
             finish()
             return
         }
-        val channel = channels.find { it.id == intent.getParcelableExtra("CHANNEL", Channel::class.java)!!.id }
+        val channel = channels.find {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                it.id == intent.getParcelableExtra("CHANNEL", Channel::class.java)!!.id
+            } else {
+                it.id == intent.getParcelableExtra<Channel>("CHANNEL")!!.id
+            }
+        }
         if (channel == null) {
             Toast.makeText(this, "Channel not found", Toast.LENGTH_SHORT).show()
             finish()
