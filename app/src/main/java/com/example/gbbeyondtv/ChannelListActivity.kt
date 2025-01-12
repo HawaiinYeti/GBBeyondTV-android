@@ -37,7 +37,7 @@ class ChannelListActivity : GBBActivity() {
     }
 
     private fun updateChannelVideos() {
-        val isListFocused = currentFocus!!.id == -1
+        val isListFocused = currentFocus?.id == -1
 
         getUpdatedVideos(channelAdapter.channels)
         channelAdapter.updateChannels(isListFocused)
