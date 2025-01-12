@@ -46,7 +46,8 @@ class VideoPlaybackActivity : AppCompatActivity() {
 
         disableSeekBarInteraction()
 
-        fetchChannel()
+        val channels = listOf(intent.getParcelableExtra("CHANNEL", Channel::class.java)!!)
+        playCurrentItem(channels)
     }
 
     @OptIn(UnstableApi::class)
@@ -84,9 +85,12 @@ class VideoPlaybackActivity : AppCompatActivity() {
     }
 
     private fun playCurrentItem(channels: List<Channel>) {
-        val channel = channels.find {
-            it.id == intent.getIntExtra("CHANNEL_ID", 0)
+        if (channels.isEmpty()) {
+            Toast.makeText(this, "No channels found", Toast.LENGTH_SHORT).show()
+            finish()
+            return
         }
+        val channel = channels.find { it.id == intent.getParcelableExtra("CHANNEL", Channel::class.java)!!.id }
         if (channel == null) {
             Toast.makeText(this, "Channel not found", Toast.LENGTH_SHORT).show()
             finish()
