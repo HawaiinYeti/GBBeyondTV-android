@@ -10,6 +10,7 @@ class ChannelAdapter(
     var channels: MutableList<Channel>,
     private val onItemClick: (Channel) -> Unit
 ) : RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder>() {
+    private var currentFocusedPosition: Int? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChannelViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -20,6 +21,9 @@ class ChannelAdapter(
     override fun onBindViewHolder(holder: ChannelViewHolder, position: Int) {
         val channel = channels[position]
         holder.bind(channel, onItemClick)
+        if (position == currentFocusedPosition) {
+            holder.itemView.requestFocus()
+        }
     }
 
     override fun getItemCount(): Int = channels.size
@@ -29,6 +33,7 @@ class ChannelAdapter(
     }
 
     fun addChannels(newChannels: List<Channel>) {
+        channels.clear()
         channels.addAll(newChannels)
         notifyDataSetChanged() // Notify adapter of data change
     }
@@ -39,6 +44,7 @@ class ChannelAdapter(
         init {
             itemView.setOnFocusChangeListener { view, hasFocus ->
                 if (hasFocus) {
+                    currentFocusedPosition = adapterPosition
                     view.setBackgroundColor(view.context.getColor(R.color.selected_item_background))
                 } else {
                     view.setBackgroundColor(view.context.getColor(R.color.default_item_background))

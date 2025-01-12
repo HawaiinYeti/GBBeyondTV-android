@@ -6,11 +6,11 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.content.Intent
+import android.util.Log
 import android.widget.Button
 import android.widget.ProgressBar
 
@@ -23,19 +23,25 @@ class ChannelListActivity : GBBActivity() {
     private lateinit var channelAdapter: ChannelAdapter
 
     private val handler = Handler(Looper.getMainLooper())
-    private val updateRunnable = object : Runnable {
+    private val updateChannelVideosRunnable = object : Runnable {
         override fun run() {
-            updateChannelList()
+            updateChannelVideos()
             handler.postDelayed(this, 1000)
         }
     }
-
-    private fun updateChannelList() {
-        val updatedChannels = getUpdatedChannels(channelAdapter.channels)
-        channelAdapter.updateChannels(updatedChannels)
+    private val updateChannelsRunnable = object : Runnable {
+        override fun run() {
+            fetchChannels(false)
+            handler.postDelayed(this, 60000)
+        }
     }
 
-    private fun getUpdatedChannels(channels: MutableList<Channel>): MutableList<Channel> {
+    private fun updateChannelVideos() {
+        val updatedVideos = getUpdatedVideos(channelAdapter.channels)
+        channelAdapter.updateChannels(updatedVideos)
+    }
+
+    private fun getUpdatedVideos(channels: MutableList<Channel>): MutableList<Channel> {
         channels.forEach { channel ->
             channel.updateQueue()
         }
@@ -69,14 +75,18 @@ class ChannelListActivity : GBBActivity() {
             navigateToActivity(SettingsActivity::class.java)
         }
 
-        handler.post(updateRunnable)
+        handler.post(updateChannelVideosRunnable)
+        handler.post(updateChannelsRunnable)
     }
 
-    private fun fetchChannels() {
-        progressBar.visibility = ProgressBar.VISIBLE
+    private fun fetchChannels(showProgressBar: Boolean = true) {
+        if (showProgressBar) {
+            progressBar.visibility = ProgressBar.VISIBLE
+        }
 
         channelService.fetchChannels(
             onSuccess = { channels ->
+                Log.d("ChannelListActivity", "Fetched ${channels.size} channels")
                 channelAdapter.addChannels(channels.toMutableList())
                 progressBar.visibility = ProgressBar.GONE
             },
@@ -104,11 +114,13 @@ class ChannelListActivity : GBBActivity() {
 
     override fun onResume() {
         super.onResume()
-        handler.post(updateRunnable) // Resume updates when the activity is visible
+        handler.post(updateChannelVideosRunnable) // Resume updates when the activity is visible
+        handler.post(updateChannelsRunnable)
     }
 
     override fun onPause() {
         super.onPause()
-        handler.removeCallbacks(updateRunnable) // Stop updates when the activity is not visible
+        handler.removeCallbacks(updateChannelVideosRunnable) // Stop updates when the activity is not visible
+        handler.removeCallbacks(updateChannelsRunnable)
     }
 }
