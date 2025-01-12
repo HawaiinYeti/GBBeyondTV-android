@@ -19,7 +19,7 @@ class SettingsActivity : GBBActivity() {
 
         clearButton.setOnClickListener {
             clearHostAndPort()
-            navigateToActivity(SetupActivity::class.java, true)
+            restartApp(applicationContext)
         }
 
         backButton.setOnClickListener {
