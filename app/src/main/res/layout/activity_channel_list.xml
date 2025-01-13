@@ -34,10 +34,11 @@
     <!-- ProgressBar for loading indication -->
     <ProgressBar
         android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyleLarge"
+        style="@android:style/Widget.Material.Light.ProgressBar.Large"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_centerInParent="true"
         android:layout_marginTop="75dp"
+        android:indeterminateTint="@color/selected_item_background"
         android:visibility="invisible" /> <!-- Initially hidden -->
 </FrameLayout>
