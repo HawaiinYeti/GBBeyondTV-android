@@ -10,8 +10,10 @@ data class QueueItem(
     val name: String,
     val deck: String,
     val url: String,
+    val showName: String?,
     val startTime: ZonedDateTime,
     val endTime: ZonedDateTime,
+    val airDate: ZonedDateTime?
 ) : Parcelable {
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -19,6 +21,8 @@ data class QueueItem(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readSerializable() as ZonedDateTime,
         parcel.readSerializable() as ZonedDateTime,
         parcel.readSerializable() as ZonedDateTime
     )
@@ -27,8 +31,10 @@ data class QueueItem(
         parcel.writeString(name)
         parcel.writeString(deck)
         parcel.writeString(url)
+        parcel.writeString(showName)
         parcel.writeSerializable(startTime)
         parcel.writeSerializable(endTime)
+        parcel.writeSerializable(airDate)
     }
 
     override fun describeContents(): Int {

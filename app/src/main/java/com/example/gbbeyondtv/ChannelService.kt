@@ -56,13 +56,19 @@ class ChannelService(private val context: Context, private val apiService: ApiSe
                     "http://$host:$port/${queueItemJson.asJsonObject.get("url").asString}"
                 }
 
+                // show and air date can be null
+                val showData = videoData.get("show")
+                val airDate = videoData.get("publish_date")
+
                 queue.add(
                     QueueItem(
                         videoData.asJsonObject.get("name").asString,
                         videoData.asJsonObject.get("deck").asString,
                         url,
+                        if (showData.isJsonNull) null else showData.asJsonObject.get("title").asString,
                         ZonedDateTime.parse(queueData.asJsonObject.get("start_time").asString),
-                        ZonedDateTime.parse(queueData.asJsonObject.get("finish_time").asString)
+                        ZonedDateTime.parse(queueData.asJsonObject.get("finish_time").asString),
+                        if (airDate == null) null else ZonedDateTime.parse(airDate.asString)
                     )
                 )
             }

@@ -8,6 +8,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.OptIn
@@ -52,6 +54,22 @@ class VideoPlaybackActivity : AppCompatActivity() {
         } else {
             listOf(intent.getParcelableExtra<Channel>("CHANNEL")!!)
         }
+
+        val moreInfoButton: Button = playerView.findViewById(R.id.exo_more_info_button)
+        moreInfoButton.setOnClickListener {
+            val moreInfoFrame = playerView.findViewById<LinearLayout>(R.id.exo_more_info_frame)
+            moreInfoFrame.visibility = if (moreInfoFrame.visibility == TextView.VISIBLE) {
+                TextView.GONE
+            } else {
+                TextView.VISIBLE
+            }
+            moreInfoButton.alpha = if (moreInfoFrame.visibility == TextView.VISIBLE) {
+                0.5f
+            } else {
+                1f
+            }
+        }
+
         playCurrentItem(channels)
     }
 
@@ -145,6 +163,7 @@ class VideoPlaybackActivity : AppCompatActivity() {
 
     private fun setVideoData(channel: Channel, video: QueueItem) {
         val formatter = DateTimeFormatter.ofPattern("hh:mm a")
+        val airDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val localZoneId = ZoneId.systemDefault()
 
         val channelNameTextView = playerView.findViewById<TextView>(R.id.exo_channel_name)
@@ -160,6 +179,20 @@ class VideoPlaybackActivity : AppCompatActivity() {
         val finishTimeTextView = playerView.findViewById<TextView>(R.id.exo_finish_time)
         finishTimeTextView.text = video.endTime.withZoneSameInstant(localZoneId).format(formatter).
             toString()
+
+        val showTextView = playerView.findViewById<TextView>(R.id.exo_show_text)
+        showTextView.text = video.showName
+
+        val descriptionTextView = playerView.findViewById<TextView>(R.id.exo_description_text)
+        descriptionTextView.text = video.deck
+
+        val airDateTextView = playerView.findViewById<TextView>(R.id.exo_air_date_text)
+        airDateTextView.text = if (video.airDate == null) {
+            null
+        } else {
+            video.airDate.withZoneSameInstant(localZoneId).
+            format(airDateFormatter).toString()
+        }
     }
 
 }
