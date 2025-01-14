@@ -21,7 +21,7 @@ data class QueueItem(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.readString()!!,
+        parcel.readString(),
         parcel.readSerializable() as ZonedDateTime,
         parcel.readSerializable() as ZonedDateTime,
         parcel.readSerializable() as ZonedDateTime
