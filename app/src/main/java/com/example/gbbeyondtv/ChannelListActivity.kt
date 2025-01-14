@@ -88,7 +88,6 @@ class ChannelListActivity : GBBActivity() {
 
         channelService.fetchChannels(
             onSuccess = { channels ->
-                Log.d("ChannelListActivity", "Fetched ${channels.size} channels")
                 channelAdapter.addChannels(channels.toMutableList())
                 progressBar.visibility = ProgressBar.GONE
             },
